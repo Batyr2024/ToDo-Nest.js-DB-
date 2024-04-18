@@ -1,5 +1,4 @@
 import { AllowNull, AutoIncrement, Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
-import { toDefaultValue } from "sequelize/types/utils";
 
 interface TaskCreation {
     text: string;

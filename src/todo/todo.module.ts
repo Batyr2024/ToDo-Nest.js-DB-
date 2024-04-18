@@ -7,8 +7,8 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { Task } from './todo.model';
 
 @Module({
-  providers: [TodoService],
   controllers: [TodoController],
+  providers: [TodoService],
   imports:[
     SequelizeModule.forFeature([Task])
   ]
