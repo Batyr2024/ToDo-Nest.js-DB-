@@ -4,11 +4,12 @@ import { TodoController } from './todo.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Task } from './todo.model';
 
-@Module({
-  controllers: [TodoController],
-  providers: [TodoService],
+@Module({  
   imports:[
     SequelizeModule.forFeature([Task])
-  ]
+  ],
+  controllers: [TodoController],
+  providers: [TodoService],
+
 })
 export class TodoModule {}

@@ -26,7 +26,7 @@ This project is a simple server application for managing a task list. It provide
 Tools such as Postman or curl can be used to interact with API endpoints. Here is an example of using curl:
 
 - Get all current tasks:
-curl http://localhost:5000/todos
+curl http://localhost:5000/tasks
 
 ## License
 This project is licensed under the MIT license.

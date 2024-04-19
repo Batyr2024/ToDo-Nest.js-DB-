@@ -4,7 +4,6 @@ import { TodoService } from './todo.service';
 
 @Controller('tasks')
 export class TodoController {
-
     constructor (private todoService: TodoService) {}
 
     @Post()
@@ -18,7 +17,8 @@ export class TodoController {
     }
 
     @Delete('/:id')
-    deleteOneTask(@Param('id') id:number){ 
+    deleteOneTask(@Query('id') id:number){ 
+        
         return this.todoService.delOneTask(id);
     }
 
@@ -28,12 +28,12 @@ export class TodoController {
     }
 
     @Patch('/:id')
-    isCheckedTask(@Param('id') id:number, @Param('check') check:boolean){
+    isCheckedTask(@Query('id') id:number, @Query('check') check:boolean){
         return this.todoService.isCheckedTask(id,check);
     }
 
     @Patch()
-    isCheckedAllTasks(@Param('check', ParseBoolPipe) check: boolean){
+    isCheckedAllTasks(@Query('check', ParseBoolPipe) check: boolean){
         return this.todoService.isCheckedAllTasks(check);
     }
 

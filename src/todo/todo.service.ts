@@ -9,11 +9,12 @@ export class TodoService {
     constructor(@InjectModel(Task) private taskRepository: typeof Task) { }
 
     async createTask(data: CreateTaskData) { 
+        console.log('service', data)
         await this.taskRepository.create(data);
     }
 
     async getAllTasks() {
-        return await this.taskRepository.findAll();
+        return JSON.stringify(await this.taskRepository.findAll());
     }
 
     async delOneTask(id: number) {
