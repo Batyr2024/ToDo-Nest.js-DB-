@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Task } from './todo.model';
-import { CreateTaskDto } from 'src/dto/CreateTask.dto';
-import { where } from 'sequelize';
+import { CreateTaskData } from 'src/data/CreateTask.data';
 
 @Injectable()
 export class TodoService {
 
     constructor(@InjectModel(Task) private taskRepository: typeof Task) { }
 
-    async createTask(dto: CreateTaskDto) {
-        await this.taskRepository.create(dto);
+    async createTask(data: CreateTaskData) { 
+        await this.taskRepository.create(data);
     }
 
     async getAllTasks() {
@@ -22,16 +21,16 @@ export class TodoService {
     }
 
     async delAllTasks() {
-        await this.taskRepository.destroy({ where: { checked: true } });
+        await this.taskRepository.destroy({ where: { isChecked: true } });
     }
 
     async isCheckedTask(id: number, check: boolean) {
-        await this.taskRepository.update({ checked: check },
+        await this.taskRepository.update({ isChecked: check },
             { where: { id } });
     }
 
     async isCheckedAllTasks(check: boolean) {
-        await this.taskRepository.update({ checked:check },{ where:{checked:!check}});
+        await this.taskRepository.update({ isChecked:check },{ where:{isChecked:!check}});
     }
 
     async changeTask(Id:number,Text:string){

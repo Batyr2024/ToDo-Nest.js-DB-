@@ -1,4 +1,4 @@
-import { AllowNull, AutoIncrement, Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, DataType, Model, Table } from "sequelize-typescript";
 
 interface TaskCreation {
     text: string;
@@ -13,5 +13,5 @@ export class Task extends Model <Task, TaskCreation>{
     text: string;
 
     @Column({type:DataType.BOOLEAN, defaultValue: false, allowNull: false})
-    checked: boolean;
+    isChecked: boolean; 
 }

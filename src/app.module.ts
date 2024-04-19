@@ -1,27 +1,25 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { TodoModule } from './todo/todo.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Task } from './todo/todo.model';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      envFilePath: '.env'
+    ConfigModule.forRoot({ isGlobal: true }),
+    SequelizeModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        dialect: configService.get('DB_DIALECT'),
+        host: configService.get('DB_HOST'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        port: Number(configService.get('DB_PORT')),
+        database: configService.get('DB_NAME'),
+        models: [Task]
+      }),
+      inject: [ConfigService]
     }),
-    SequelizeModule.forRoot({
-      dialect: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: Number(process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_NAME,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DB,
-      models: [Task],
-      autoLoadModels: true,
-    }),
-    TodoModule,
-  ],
-  controllers: [],
-  providers: [],
-})
+    TodoModule
+  ]})
 export class AppModule {}
