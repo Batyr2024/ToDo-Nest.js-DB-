@@ -27,6 +27,7 @@ export class TodoController {
         return this.todoService.delAllTasks();
     }
 
+
     @Patch('/:id')
     isCheckedTask(@Query('id') id:number, @Query('check') check:boolean){
         return this.todoService.isCheckedTask(id,check);
@@ -37,8 +38,8 @@ export class TodoController {
         return this.todoService.isCheckedAllTasks(check);
     }
 
-    @Put('/:id')
-    changeTask(@Param('id') id:number, @Param('text') text:string){
+    @Put()
+    changeTask(@Query('id') id:number, @Body() text:CreateTaskData){
         return this.todoService.changeTask(id,text);
     }
 }

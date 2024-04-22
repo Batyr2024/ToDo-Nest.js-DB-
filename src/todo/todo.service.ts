@@ -9,7 +9,6 @@ export class TodoService {
     constructor(@InjectModel(Task) private taskRepository: typeof Task) { }
 
     async createTask(data: CreateTaskData) { 
-        console.log('service', data)
         await this.taskRepository.create(data);
     }
 
@@ -34,8 +33,8 @@ export class TodoService {
         await this.taskRepository.update({ isChecked:check },{ where:{isChecked:!check}});
     }
 
-    async changeTask(Id:number,Text:string){
-        await this.taskRepository.update({text: Text},{where:{id: Id}})
+    async changeTask(Id:number,Text:CreateTaskData){
+        await this.taskRepository.update({text: Text.text},{where:{id: Id}})
     }
 
 }
